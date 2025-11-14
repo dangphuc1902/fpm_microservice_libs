@@ -26,6 +26,7 @@
         <module>fpm-grpc</module>
         <module>fpm-messaging</module>
         <module>fpm-testing</module>
+        <module>fpm-microservice-libs</module>
     </modules>
 
     <properties>

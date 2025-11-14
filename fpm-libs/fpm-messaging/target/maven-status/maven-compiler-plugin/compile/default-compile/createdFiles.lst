@@ -1,0 +1,8 @@
+com\fpm2025\messaging\event\listener\EventListener.class
+com\fpm2025\messaging\event\model\DomainEvent.class
+com\fpm2025\messaging\event\model\EventMetadata.class
+com\fpm2025\messaging\event\publisher\RabbitEventPublisher.class
+com\fpm2025\messaging\event\publisher\EventPublisher.class
+com\fpm2025\messaging\event\model\EventMetadata$EventMetadataBuilder.class
+com\fpm2025\messaging\config\RabbitMQEventConfig.class
+com\fpm2025\messaging\event\listener\EventListenerRegistry.class

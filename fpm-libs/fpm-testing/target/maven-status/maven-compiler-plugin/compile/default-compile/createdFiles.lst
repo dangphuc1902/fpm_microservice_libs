@@ -1,0 +1,5 @@
+com\fpm2025\testing\builder\MockDataBuilder.class
+com\fpm2025\testing\testcontainers\RabbitMQTestContainer.class
+com\fpm2025\testing\util\AssertionUtil.class
+com\fpm2025\testing\util\TestDataFactory.class
+com\fpm2025\testing\testcontainers\PostgresTestContainer.class

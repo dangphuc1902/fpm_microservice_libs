@@ -1,0 +1,7 @@
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-messaging\src\main\java\com\fpm2025\messaging\config\RabbitMQEventConfig.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-messaging\src\main\java\com\fpm2025\messaging\event\listener\EventListener.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-messaging\src\main\java\com\fpm2025\messaging\event\listener\EventListenerRegistry.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-messaging\src\main\java\com\fpm2025\messaging\event\model\DomainEvent.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-messaging\src\main\java\com\fpm2025\messaging\event\model\EventMetadata.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-messaging\src\main\java\com\fpm2025\messaging\event\publisher\EventPublisher.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-messaging\src\main\java\com\fpm2025\messaging\event\publisher\RabbitEventPublisher.java

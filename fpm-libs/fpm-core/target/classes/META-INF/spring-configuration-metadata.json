@@ -1,0 +1,75 @@
+{
+  "groups": [
+    {
+      "name": "fpm.core",
+      "type": "com.fpm2025.core.properties.FpmCoreProperties",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties"
+    },
+    {
+      "name": "fpm.core.jwt",
+      "type": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties",
+      "sourceMethod": "public com.fpm2025.core.properties.FpmCoreProperties.JwtConfig getJwt() "
+    },
+    {
+      "name": "fpm.core.page",
+      "type": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties",
+      "sourceMethod": "public com.fpm2025.core.properties.FpmCoreProperties.PageConfig getPage() "
+    },
+    {
+      "name": "fpm.core.redis",
+      "type": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties",
+      "sourceMethod": "public com.fpm2025.core.properties.FpmCoreProperties.RedisConfig getRedis() "
+    }
+  ],
+  "properties": [
+    {
+      "name": "fpm.core.jwt.expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig"
+    },
+    {
+      "name": "fpm.core.jwt.refresh-expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig"
+    },
+    {
+      "name": "fpm.core.jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig"
+    },
+    {
+      "name": "fpm.core.page.default-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig"
+    },
+    {
+      "name": "fpm.core.page.max-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig"
+    },
+    {
+      "name": "fpm.core.redis.host",
+      "type": "java.lang.String",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig"
+    },
+    {
+      "name": "fpm.core.redis.password",
+      "type": "java.lang.String",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig"
+    },
+    {
+      "name": "fpm.core.redis.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig"
+    },
+    {
+      "name": "fpm.core.redis.timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig"
+    }
+  ],
+  "hints": []
+}
