@@ -8,52 +8,55 @@
     {
       "name": "fpm.core.jwt",
       "type": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties",
-      "sourceMethod": "public com.fpm2025.core.properties.FpmCoreProperties.JwtConfig getJwt() "
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties"
     },
     {
       "name": "fpm.core.page",
       "type": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties",
-      "sourceMethod": "public com.fpm2025.core.properties.FpmCoreProperties.PageConfig getPage() "
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties"
     },
     {
       "name": "fpm.core.redis",
       "type": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties",
-      "sourceMethod": "public com.fpm2025.core.properties.FpmCoreProperties.RedisConfig getRedis() "
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties"
     }
   ],
   "properties": [
     {
       "name": "fpm.core.jwt.expiration",
       "type": "java.lang.Long",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig",
+      "defaultValue": 86400000
     },
     {
       "name": "fpm.core.jwt.refresh-expiration",
       "type": "java.lang.Long",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig",
+      "defaultValue": 604800000
     },
     {
       "name": "fpm.core.jwt.secret",
       "type": "java.lang.String",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$JwtConfig",
+      "defaultValue": "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
     },
     {
       "name": "fpm.core.page.default-size",
       "type": "java.lang.Integer",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig",
+      "defaultValue": 20
     },
     {
       "name": "fpm.core.page.max-size",
       "type": "java.lang.Integer",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$PageConfig",
+      "defaultValue": 100
     },
     {
       "name": "fpm.core.redis.host",
       "type": "java.lang.String",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig",
+      "defaultValue": "localhost"
     },
     {
       "name": "fpm.core.redis.password",
@@ -63,12 +66,14 @@
     {
       "name": "fpm.core.redis.port",
       "type": "java.lang.Integer",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig",
+      "defaultValue": 6379
     },
     {
       "name": "fpm.core.redis.timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig"
+      "sourceType": "com.fpm2025.core.properties.FpmCoreProperties$RedisConfig",
+      "defaultValue": 60
     }
   ],
   "hints": []

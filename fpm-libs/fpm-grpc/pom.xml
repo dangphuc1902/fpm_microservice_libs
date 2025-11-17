@@ -73,13 +73,17 @@
 			<plugin>
 				<groupId>org.xolstice.maven.plugins</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
-				<version>${protobuf-plugin.version}</version>
+				<version>0.6.1</version>
+
 				<configuration>
 					<protocArtifact>
-						com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+						com.google.protobuf:protoc:${protobuf.version}:exe:windows-x86_64
+					</protocArtifact>
+
 					<pluginId>grpc-java</pluginId>
 					<pluginArtifact>
-						io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+						io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:windows-x86_64
+					</pluginArtifact>
 				</configuration>
 				<executions>
 					<execution>
