@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Build-Jdk-Spec: 21
 Implementation-Title: FPM Testing
-Implementation-Version: 1.0.0
+Implementation-Version: 1.0.0-SNAPSHOT
 Created-By: Maven Integration for Eclipse
 
