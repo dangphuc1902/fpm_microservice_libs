@@ -1,0 +1,7 @@
+com\fpm2025\grpc\interceptor\GrpcLoggingInterceptor$1.class
+com\fpm2025\grpc\interceptor\GrpcErrorInterceptor$2.class
+com\fpm2025\grpc\interceptor\GrpcErrorInterceptor.class
+com\fpm2025\grpc\interceptor\GrpcLoggingInterceptor.class
+com\fpm2025\grpc\config\GrpcClientConfig.class
+com\fpm2025\grpc\interceptor\GrpcLoggingInterceptor$2.class
+com\fpm2025\grpc\interceptor\GrpcErrorInterceptor$1.class
