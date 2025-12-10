@@ -1,6 +1,13 @@
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\category\Category.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\common\BaseEvent.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\common\Money.java
 D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\constants\DomainConstants.java
 D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\constants\ErrorMessages.java
 D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\enums\CategoryType.java
 D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\enums\CurrencyCode.java
 D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\enums\TransactionType.java
 D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\enums\WalletType.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\transaction\Transaction.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\transaction\TransactionCreatedEvent.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\transaction\TransactionSource.java
+D:\WorkSpace\Project\FPM-2025\libs\fpm-libs\fpm-domain\src\main\java\com\fpm2025\domain\wallet\Wallet.java
