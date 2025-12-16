@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package fpm2025.common;
+
+option java_multiple_files = true;
+option java_package = "com.fpm2025.protocol.common";
+
+message Empty {}
+
+message ResponseStatus {
+  bool success = 1;
+  string message = 2;
+  string code = 3;
+}
+
+message Money {
+  double amount = 1;
+  string currency = 2;
+}
+
+message PageRequest {
+  int32 page = 1;
+  int32 size = 2;
+  string sort = 3;
+}
+
+message PageResponse {
+  int32 total_pages = 1;
+  int64 total_elements = 2;
+  int32 current_page = 3;
+  int32 size = 4;
+}

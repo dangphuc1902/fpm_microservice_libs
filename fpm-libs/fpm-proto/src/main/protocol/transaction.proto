@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package fpm2025.transaction;
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "com.fpm2025.protocol.transaction";
+
+service TransactionGrpcService {
+  rpc GetTransactionById(TransactionIdRequest) returns (TransactionResponse);
+  rpc GetTransactionsByWallet(WalletTransactionsRequest) returns (TransactionsResponse);
+  rpc GetTransactionsByDateRange(DateRangeRequest) returns (TransactionsResponse);
+  rpc GetTransactionsByUser(UserTransactionsRequest) returns (TransactionsResponse);
+  rpc CreateTransaction(CreateTransactionRequest) returns (TransactionResponse);
+  rpc GetTotalSpending(SpendingRequest) returns (SpendingResponse);
+}
+
+message TransactionIdRequest {
+  int64 transaction_id = 1;
+}
+
+message WalletTransactionsRequest {
+  int64 wallet_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+  string type = 4; // INCOME, EXPENSE, TRANSFER (optional filter)
+}
+
+message DateRangeRequest {
+  int64 user_id = 1;
+  string start_date = 2; // ISO format
+  string end_date = 3;
+  repeated int64 wallet_ids = 4;
+  string type = 5; // optional filter
+}
+
+message UserTransactionsRequest {
+  int64 user_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message CreateTransactionRequest {
+  int64 wallet_id = 1;
+  int64 user_id = 2;
+  fpm2025.common.Money amount = 3;
+  string type = 4;
+  string description = 5;
+  int64 category_id = 6;
+  string transaction_date = 7;
+  string source = 8;
+  string note = 9;
+}
+
+message SpendingRequest {
+  int64 user_id = 1;
+  string start_date = 2;
+  string end_date = 3;
+  int64 category_id = 4; // optional
+}
+
+message TransactionResponse {
+  int64 id = 1;
+  int64 wallet_id = 2;
+  int64 user_id = 3;
+  fpm2025.common.Money amount = 4;
+  string type = 5;
+  string description = 6;
+  int64 category_id = 7;
+  string category_name = 8;
+  string transaction_date = 9;
+  string source = 10;
+  string note = 11;
+  string created_at = 12;
+}
+
+message TransactionsResponse {
+  repeated TransactionResponse transactions = 1;
+  fpm2025.common.PageResponse page_info = 2;
+}
+
+message SpendingResponse {
+  fpm2025.common.Money total_amount = 1;
+  int32 transaction_count = 2;
+}

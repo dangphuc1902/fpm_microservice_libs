@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package fpm2025.wallet;
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "com.fpm2025.protocol.wallet";
+
+service WalletGrpcService {
+  rpc GetWalletById(WalletIdRequest) returns (WalletResponse);
+  rpc GetWalletsByUserId(UserWalletsRequest) returns (WalletsResponse);
+  rpc UpdateBalance(UpdateBalanceRequest) returns (WalletResponse);
+  rpc ValidateWalletAccess(WalletAccessRequest) returns (WalletAccessResponse);
+  rpc CheckSufficientBalance(BalanceCheckRequest) returns (BalanceCheckResponse);
+}
+
+message WalletIdRequest {
+  int64 wallet_id = 1;
+}
+
+message UserWalletsRequest {
+  int64 user_id = 1;
+  bool active_only = 2;
+}
+
+message UpdateBalanceRequest {
+  int64 wallet_id = 1;
+  fpm2025.common.Money amount = 2;
+  string operation = 3; // ADD, SUBTRACT, SET
+  string description = 4;
+}
+
+message WalletAccessRequest {
+  int64 wallet_id = 1;
+  int64 user_id = 2;
+}
+
+message BalanceCheckRequest {
+  int64 wallet_id = 1;
+  fpm2025.common.Money amount = 2;
+}
+
+message WalletResponse {
+  int64 id = 1;
+  int64 user_id = 2;
+  string name = 3;
+  string type = 4;
+  fpm2025.common.Money balance = 5;
+  string icon = 6;
+  bool is_active = 7;
+  string created_at = 8;
+  string updated_at = 9;
+}
+
+message WalletsResponse {
+  repeated WalletResponse wallets = 1;
+  fpm2025.common.Money total_balance = 2;
+}
+
+message WalletAccessResponse {
+  bool has_access = 1;
+  string permission_level = 2; // OWNER, WRITE, READ
+}
+
+message BalanceCheckResponse {
+  bool sufficient = 1;
+  fpm2025.common.Money current_balance = 2;
+  fpm2025.common.Money required_amount = 3;
+}

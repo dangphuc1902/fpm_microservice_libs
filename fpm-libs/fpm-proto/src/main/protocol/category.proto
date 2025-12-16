@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package fpm2025.category;
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "com.fpm2025.protocol.category";
+
+service CategoryGrpcService {
+  rpc GetCategoryById(CategoryIdRequest) returns (CategoryResponse);
+  rpc GetCategoriesByType(CategoryTypeRequest) returns (CategoriesResponse);
+  rpc GetCategoryTree(CategoryTreeRequest) returns (CategoriesResponse);
+  rpc AutoCategorize(AutoCategorizeRequest) returns (CategoryResponse);
+  rpc GetBudgetByCategory(BudgetRequest) returns (BudgetResponse);
+  rpc CheckBudgetStatus(BudgetCheckRequest) returns (BudgetStatusResponse);
+}
+
+message CategoryIdRequest {
+  int64 category_id = 1;
+}
+
+message CategoryTypeRequest {
+  string type = 1; // INCOME, EXPENSE
+  int64 user_id = 2;
+}
+
+message CategoryTreeRequest {
+  int64 user_id = 1;
+  string type = 2;
+}
+
+message AutoCategorizeRequest {
+  string description = 1;
+  int64 user_id = 2;
+  string transaction_type = 3;
+}
+
+message BudgetRequest {
+  int64 category_id = 1;
+  int64 user_id = 2;
+  string month = 3; // YYYY-MM
+}
+
+message BudgetCheckRequest {
+  int64 category_id = 1;
+  int64 user_id = 2;
+  fpm2025.common.Money amount = 3;
+  string month = 4;
+}
+
+message CategoryResponse {
+  int64 id = 1;
+  string name = 2;
+  int64 parent_id = 3;
+  string icon_path = 4;
+  string type = 5;
+}
+
+message CategoriesResponse {
+  repeated CategoryResponse categories = 1;
+}
+
+message BudgetResponse {
+  int64 id = 1;
+  int64 category_id = 2;
+  int64 user_id = 3;
+  fpm2025.common.Money limit = 4;
+  fpm2025.common.Money used = 5;
+  string month = 6;
+}
+
+message BudgetStatusResponse {
+  bool exceeded = 1;
+  double usage_percentage = 2;
+  fpm2025.common.Money remaining = 3;
+  string status = 4; // OK, WARNING, EXCEEDED
+}
