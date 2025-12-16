@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ========================================
+         PARENT
+         ======================================== -->
+    <parent>
+        <groupId>com.fpm2025</groupId>
+        <artifactId>fpm-libs</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- ========================================
+         BOM MODULE INFO
+         ======================================== -->
+    <artifactId>fpm-bom</artifactId>
+    <packaging>pom</packaging>
+
+    <name>FPM Bill of Materials</name>
+    <description>
+        Centralized dependency management for FPM 2025 libraries.
+        Import this BOM in your service to get all FPM libraries with consistent versions.
+    </description>
+
+    <!-- ========================================
+         PROPERTIES - Version Definitions
+         ======================================== -->
+    <properties>
+        <!-- FPM Libraries Version -->
+        <fpm.version>1.0.0-SNAPSHOT</fpm.version>
+
+        <!-- Spring Boot & Cloud -->
+        <spring-boot.version>3.2.0</spring-boot.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
+
+        <!-- gRPC -->
+        <grpc.version>1.60.0</grpc.version>
+        <grpc-spring-boot.version>3.0.0.RELEASE</grpc-spring-boot.version>
+        <protobuf.version>3.25.1</protobuf.version>
+
+        <!-- Database -->
+        <postgresql.version>42.7.1</postgresql.version>
+        <flyway.version>9.22.3</flyway.version>
+        <hypersistence-utils.version>3.7.3</hypersistence-utils.version>
+
+        <!-- Security -->
+        <jjwt.version>0.12.3</jjwt.version>
+
+        <!-- Utilities -->
+        <lombok.version>1.18.30</lombok.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+
+        <!-- Testing -->
+        <testcontainers.version>1.19.7</testcontainers.version>
+
+        <!-- Export -->
+        <poi.version>5.2.5</poi.version>
+        <itext.version>7.2.5</itext.version>
+    </properties>
+
+    <!-- ========================================
+         DEPENDENCY MANAGEMENT
+         ======================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- ==================== FPM Libraries ==================== -->
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-core</artifactId>
+                <version>${fpm.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-common</artifactId>
+                <version>${fpm.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-domain</artifactId>
+                <version>${fpm.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-proto</artifactId>
+                <version>${fpm.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-grpc</artifactId>
+                <version>${fpm.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-messaging</artifactId>
+                <version>${fpm.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-security</artifactId>
+                <version>${fpm.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fpm2025</groupId>
+                <artifactId>fpm-testing</artifactId>
+                <version>${fpm.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- ==================== Spring Boot BOM ==================== -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ==================== Spring Cloud BOM ==================== -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ==================== gRPC ==================== -->
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>${grpc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-server-spring-boot-starter</artifactId>
+                <version>${grpc-spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-client-spring-boot-starter</artifactId>
+                <version>${grpc-spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+
+            <!-- ==================== Database ==================== -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.hypersistence</groupId>
+                <artifactId>hypersistence-utils-hibernate-60</artifactId>
+                <version>${hypersistence-utils.version}</version>
+            </dependency>
+
+            <!-- ==================== Security ==================== -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- ==================== Utilities ==================== -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <!-- ==================== Export Libraries ==================== -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itext7-core</artifactId>
+                <version>${itext.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>html2pdf</artifactId>
+                <version>4.0.5</version>
+            </dependency>
+
+            <!-- ==================== Testing ==================== -->
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ========================================
+         BUILD
+         ======================================== -->
+    <build>
+        <plugins>
+            <!-- Skip compilation for BOM -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Skip tests for BOM -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <!-- Flatten POM for better BOM consumption -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <configuration>
+                    <flattenMode>bom</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
