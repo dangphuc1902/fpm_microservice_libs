@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Maven
+target/
+*.jar
+*.war
+*.ear
+.m2/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+.eclipse/
+.project
+.classpath
+.settings/
+
+# Build scripts
+build.sh
+*.sh
+
+# Node (if present)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS
+.DS_Store
+Thumbs.db
+.env
+.env.local
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Documentation
+README.md
+*.md
+docs/
+
+# Other
+*.log
+*.tmp
+.bolt/
+.vs/

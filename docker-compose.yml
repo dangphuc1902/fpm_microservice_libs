@@ -1,0 +1,210 @@
+version: '3.8'
+
+# Local Development Environment for FPM Libraries
+# Includes: Build container, PostgreSQL, RabbitMQ, Redis, Kafka
+
+services:
+  # ============================================
+  # FPM Build Service
+  # ============================================
+  fpm-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    image: fpm-libraries:dev
+    container_name: fpm-builder
+    volumes:
+      - .:/app
+      - m2-cache:/home/app/.m2
+      - gradle-cache:/home/app/.gradle
+    environment:
+      JAVA_OPTS: "-Xmx1024m -Xms512m"
+      MAVEN_OPTS: "-Xmx1024m"
+    command: >
+      sh -c "
+        echo '========================================';
+        echo 'FPM Libraries Builder';
+        echo '========================================';
+        echo '';
+        echo 'Starting build...';
+        cd /app/fpm-libs && mvn clean install -DskipTests;
+        echo '';
+        echo 'Build completed! You can now use the libraries.';
+        echo '';
+        tail -f /dev/null
+      "
+    networks:
+      - fpm-network
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+    healthcheck:
+      test: ["CMD", "test", "-d", "/app/fpm-libs/fpm-core/target"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================
+  # PostgreSQL Database
+  # ============================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: fpm-postgres
+    hostname: postgres
+    environment:
+      POSTGRES_DB: fpm_dev
+      POSTGRES_USER: fpm_user
+      POSTGRES_PASSWORD: fpm_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    networks:
+      - fpm-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fpm_user -d fpm_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # RabbitMQ Message Broker
+  # ============================================
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: fpm-rabbitmq
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - "5672:5672"      # AMQP port
+      - "15672:15672"    # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./docker/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    networks:
+      - fpm-network
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ============================================
+  # Redis Cache
+  # ============================================
+  redis:
+    image: redis:7-alpine
+    container_name: fpm-redis
+    hostname: redis
+    command: redis-server --appendonly yes --requirepass redis_password
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - fpm-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # Kafka Message Queue (Optional)
+  # ============================================
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: fpm-zookeeper
+    hostname: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+    networks:
+      - fpm-network
+    profiles:
+      - kafka
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: fpm-kafka
+    hostname: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - fpm-network
+    profiles:
+      - kafka
+
+  # ============================================
+  # pgAdmin - PostgreSQL Web Interface
+  # ============================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: fpm-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_PROXY_X_FOR_COUNT: 1
+      PGADMIN_CONFIG_PROXY_X_PROTO_COUNT: 1
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - fpm-network
+    depends_on:
+      - postgres
+    profiles:
+      - admin-tools
+
+# ============================================
+# Networks
+# ============================================
+networks:
+  fpm-network:
+    driver: bridge
+
+# ============================================
+# Volumes
+# ============================================
+volumes:
+  postgres_data:
+    driver: local
+  rabbitmq_data:
+    driver: local
+  redis_data:
+    driver: local
+  m2-cache:
+    driver: local
+  gradle-cache:
+    driver: local
+  pgadmin_data:
+    driver: local
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
