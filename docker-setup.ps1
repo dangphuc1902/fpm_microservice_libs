@@ -83,7 +83,7 @@ switch ($Command.ToLower()) {
         Write-Success "Docker image built successfully"
         
         Write-Info "Starting services with Docker Compose..."
-        docker-compose up -d postgres rabbitmq redis
+        docker-compose up -d mysql rabbitmq redis
         if ($LASTEXITCODE -ne 0) { Write-Error-Custom "Docker Compose startup failed" }
         Write-Success "Services started successfully"
         
@@ -95,7 +95,7 @@ switch ($Command.ToLower()) {
         Write-Host "`n"
         Write-Header "Setup Complete!"
         Write-Host "Services are now running:"
-        Write-Host "  - PostgreSQL      : postgres:5432 (user: fpm_user, pass: fpm_password)"
+        Write-Host "  - MySQL           : mysql:3306 (user: fpm_user, pass: fpm_password)"
         Write-Host "  - RabbitMQ        : rabbitmq:5672 (UI: localhost:15672)"
         Write-Host "  - Redis           : redis:6379 (password: redis_password)"
         Write-Host "  - FPM Builder     : Building libraries...`n"
@@ -208,8 +208,8 @@ switch ($Command.ToLower()) {
         Write-Host "`n"
         Write-Header "Full Setup Complete!"
         Write-Host "Available services:"
-        Write-Host "  - PostgreSQL       : postgres:5432"
-        Write-Host "  - pgAdmin          : http://localhost:5050 (admin@example.com / admin)"
+        Write-Host "  - MySQL            : mysql:3306"
+        Write-Host "  - phpMyAdmin       : http://localhost:5050"
         Write-Host "  - RabbitMQ         : rabbitmq:5672 (UI: localhost:15672)"
         Write-Host "  - Redis            : redis:6379"
         Write-Host "  - Zookeeper        : zookeeper:2181"

@@ -31,7 +31,7 @@ RUN addgroup -g 1000 app && \
 WORKDIR /app
 
 # Copy built artifacts from builder stage
-COPY --from=builder /build --chown=app:app /app
+COPY --from=builder --chown=app:app /build /app
 
 # Switch to non-root user
 USER app

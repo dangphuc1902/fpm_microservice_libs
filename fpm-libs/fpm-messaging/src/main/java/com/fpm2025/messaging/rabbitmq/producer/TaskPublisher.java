@@ -27,7 +27,7 @@ public class TaskPublisher {
         log.info("Sending delayed task to queue: {}, delay: {}ms", queue, delayMillis);
         try {
             rabbitTemplate.convertAndSend(queue, task, message -> {
-                message.getMessageProperties().setDelay(delayMillis);
+                message.getMessageProperties().getHeaders().put("x-delay", delayMillis);
                 return message;
             });
             log.info("Delayed task sent successfully to queue: {}", queue);

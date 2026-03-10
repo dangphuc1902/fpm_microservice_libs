@@ -1,7 +1,7 @@
 version: '3.8'
 
 # Local Development Environment for FPM Libraries
-# Includes: Build container, PostgreSQL, RabbitMQ, Redis, Kafka
+# Includes: Build container, MySQL, RabbitMQ, Redis, Kafka
 
 services:
   # ============================================
@@ -37,37 +37,38 @@ services:
     networks:
       - fpm-network
     depends_on:
-      - postgres
+      - mysql
       - rabbitmq
       - redis
     healthcheck:
-      test: ["CMD", "test", "-d", "/app/fpm-libs/fpm-core/target"]
+      test: [ "CMD", "test", "-d", "/app/fpm-libs/fpm-core/target" ]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
   # ============================================
-  # PostgreSQL Database
+  # MySQL Database
   # ============================================
-  postgres:
-    image: postgres:16-alpine
-    container_name: fpm-postgres
-    hostname: postgres
+  mysql:
+    image: mysql:8.0
+    container_name: fpm-mysql
+    hostname: mysql
     environment:
-      POSTGRES_DB: fpm_dev
-      POSTGRES_USER: fpm_user
-      POSTGRES_PASSWORD: fpm_password
-      PGDATA: /var/lib/postgresql/data/pgdata
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: fpm_user
+      MYSQL_PASSWORD: fpm_password
+      MYSQL_DATABASE: fpm_dev
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     networks:
       - fpm-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U fpm_user -d fpm_dev"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -84,8 +85,8 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_VHOST: /
     ports:
-      - "5672:5672"      # AMQP port
-      - "15672:15672"    # Management UI
+      - "5672:5672" # AMQP port
+      - "15672:15672" # Management UI
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
       - ./docker/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
@@ -112,7 +113,7 @@ services:
     networks:
       - fpm-network
     healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -160,24 +161,21 @@ services:
       - kafka
 
   # ============================================
-  # pgAdmin - PostgreSQL Web Interface
+  # phpMyAdmin - MySQL Web Interface (Optional)
   # ============================================
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: fpm-pgadmin
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: fpm-phpmyadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_PROXY_X_FOR_COUNT: 1
-      PGADMIN_CONFIG_PROXY_X_PROTO_COUNT: 1
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "5050:80"
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
     networks:
       - fpm-network
     depends_on:
-      - postgres
+      - mysql
     profiles:
       - admin-tools
 
@@ -192,7 +190,7 @@ networks:
 # Volumes
 # ============================================
 volumes:
-  postgres_data:
+  mysql_data:
     driver: local
   rabbitmq_data:
     driver: local
@@ -201,8 +199,6 @@ volumes:
   m2-cache:
     driver: local
   gradle-cache:
-    driver: local
-  pgadmin_data:
     driver: local
   zookeeper_data:
     driver: local
