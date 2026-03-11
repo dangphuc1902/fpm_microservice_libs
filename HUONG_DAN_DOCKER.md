@@ -190,6 +190,7 @@ docker run -it --rm fpm-libraries:latest
 ```powershell
 # Vào shell của container
 docker run -it --rm fpm-libraries:latest /bin/sh
+docker run -it --rm fpm-libraries:1.0.0 /bin/sh
 
 # Bây giờ bạn ở trong container:
 # $ ls /app
