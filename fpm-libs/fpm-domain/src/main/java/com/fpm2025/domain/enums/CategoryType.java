@@ -10,8 +10,10 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 public enum CategoryType {
-    EXPENSE("expense"),
-    INCOME("income");
+    EXPENSE("EXPENSE"),
+    INCOME("INCOME"),
+    INVESTMENT("INVESTMENT"),
+    TRANSFER("TRANSFER");
 
     private final String value;
 

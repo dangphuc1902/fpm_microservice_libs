@@ -9,15 +9,11 @@ import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor
-public enum WalletType {
-    CASH("CASH"),
-    CARD("CARD"),
-    BANK("BANK"),
-    SHARED("SHARED"),
-    FAMILY("FAMILY"),
-    SAVINGS("SAVINGS"),
-    E_WALLET("E_WALLET"),
-    OTHER("OTHER");
+public enum WalletPermissionLevel {
+    READ_ONLY("READ_ONLY"),
+    READ_WRITE("READ_WRITE"),
+    FULL_ACCESS("FULL_ACCESS"),
+    OWNER("OWNER");
 
     private final String value;
 
@@ -27,11 +23,11 @@ public enum WalletType {
     }
 
     @JsonCreator
-    public static WalletType fromValue(String value) {
+    public static WalletPermissionLevel fromValue(String value) {
         return Arrays.stream(values())
                 .filter(v -> v.value.equalsIgnoreCase(value))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Invalid WalletType: " + value));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid WalletPermissionLevel: " + value));
     }
 
     @Override
