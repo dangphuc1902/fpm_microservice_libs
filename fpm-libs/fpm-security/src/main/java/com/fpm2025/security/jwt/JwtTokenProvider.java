@@ -96,9 +96,40 @@ public class JwtTokenProvider {
         }
     }
 
+    public String refreshToken(String token) {
+        Claims claims = extractClaims(token);
+        // Clean timestamps to avoid issues during regeneration
+        claims.remove(Claims.ISSUED_AT);
+        claims.remove(Claims.EXPIRATION);
+        
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpiration()))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .compact();
+    }
+
+    public long getRemainingExpiration(String token) {
+        try {
+            Date expirationDate = extractClaims(token).getExpiration();
+            return Math.max(0, expirationDate.getTime() - System.currentTimeMillis());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public long getExpiration() {
+        return jwtProperties.getExpiration();
+    }
+
+    public long getRefreshExpiration() {
+        return jwtProperties.getRefreshExpiration();
+    }
+
     public String extractTokenFromHeader(String authHeader) {
         if (authHeader != null && authHeader.startsWith(jwtProperties.getPrefix())) {
-            return authHeader.substring(jwtProperties.getPrefix().length());
+            return authHeader.substring(jwtProperties.getPrefix().length()).trim();
         }
         return null;
     }

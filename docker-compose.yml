@@ -47,6 +47,27 @@ services:
       retries: 3
       start_period: 40s
 
+  config-server:
+    build:
+      context: ../config # Đường dẫn đến thư mục chứa Config Server của bạn
+      dockerfile: Dockerfile
+    image: fpm-config-server:latest # Tên image cho Config Server
+    container_name: fpm-config-server
+    ports:
+      - "8888:8888"
+    environment:
+      # Nếu kho Git yêu cầu xác thực, hãy thêm các biến môi trường này
+      # GIT_REPO_USERNAME: your_git_username
+      # GIT_REPO_PASSWORD: your_git_password
+      SPRING_PROFILES_ACTIVE: git # Đảm bảo khớp với application.yml
+    networks:
+      - fpm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   # ============================================
   # MySQL Database
   # ============================================

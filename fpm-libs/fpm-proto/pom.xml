@@ -59,13 +59,18 @@
 				<artifactId>protobuf-maven-plugin</artifactId>
 				<version>0.6.1</version>
 				<configuration>
+					<protoSourceRoot>${project.basedir}/src/main/protocol</protoSourceRoot>
 					<!-- protoc -->
 					<protocArtifact>
-						com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+						com.google.protobuf:protoc:${protobuf.version}:exe:windows-x86_64
+					</protocArtifact>
+
+					<pluginArtifact>
+						io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:windows-x86_64
+					</pluginArtifact>
 					<!-- gRPC plugin – cách viết KHÔNG BAO GIỜ LỖI classifier -->
 					<pluginId>grpc-java</pluginId>
-					<pluginArtifact>
-						io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+					<addProtoSources>false</addProtoSources>
 				</configuration>
 				<executions>
 					<execution>
