@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"com.fpm2025.domain.category"},{"l":"com.fpm2025.domain.common"},{"l":"com.fpm2025.domain.constants"},{"l":"com.fpm2025.domain.enums"},{"l":"com.fpm2025.domain.transaction"},{"l":"com.fpm2025.domain.wallet"}];updateSearchResults();

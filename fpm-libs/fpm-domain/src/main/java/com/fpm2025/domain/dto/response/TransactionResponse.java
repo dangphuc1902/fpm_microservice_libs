@@ -24,8 +24,12 @@ public class TransactionResponse implements Serializable {
     private String categoryIcon;
     private String categoryColor;
     private BigDecimal amount;
+    private String currency;
     private CategoryType type;
+    private String description;
     private String note;
+    private String location;
+    private Boolean isRecurring;
     private LocalDateTime transactionDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
