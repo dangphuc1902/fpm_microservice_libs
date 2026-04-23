@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      packages: write # Quan trọng: Phải có quyền ghi package
     
     steps:
       - name: Checkout code
@@ -27,8 +27,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          # Tự động cấu hình settings.xml cho GitHub Packages
           server-id: github
-          settings-path: ${{ github.workspace }}
           cache: 'maven'
 
       - name: Publish to GitHub Packages
@@ -36,6 +36,7 @@ jobs:
           cd fpm-libs
           mvn clean deploy -DskipTests -B
         env:
+          # Maven dùng biến này để map với server-id 'github'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build success summary
@@ -43,4 +44,3 @@ jobs:
         run: |
           echo "## 🚀 Shared Libraries Published Successfully" >> $GITHUB_STEP_SUMMARY
           echo "Thư viện đã được đẩy lên GitHub Packages." >> $GITHUB_STEP_SUMMARY
-          echo "- **Version:** 1.0.0-SNAPSHOT" >> $GITHUB_STEP_SUMMARY
