@@ -69,7 +69,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/dangphuc1902/fpm-2025-backend</url>
+			<url>https://maven.pkg.github.com/dangphuc1902/fpm_microservice_libs</url>
 		</repository>
 	</distributionManagement>
 
