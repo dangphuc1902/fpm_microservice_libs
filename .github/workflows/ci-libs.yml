@@ -2,11 +2,11 @@ name: "CI - Shared Libraries"
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, master ]
     paths:
       - 'fpm-libs/**'
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main, develop, master ]
     paths:
       - 'fpm-libs/**'
   workflow_dispatch:
