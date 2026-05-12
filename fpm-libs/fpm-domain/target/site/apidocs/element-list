@@ -1,0 +1,9 @@
+com.fpm2025.domain.category
+com.fpm2025.domain.common
+com.fpm2025.domain.constants
+com.fpm2025.domain.dto.request
+com.fpm2025.domain.dto.response
+com.fpm2025.domain.enums
+com.fpm2025.domain.event
+com.fpm2025.domain.transaction
+com.fpm2025.domain.wallet
