@@ -5,21 +5,14 @@ package fpm2025.sharing;
 import "common.proto";
 
 option java_multiple_files = true;
-option java_package = "com.fpm2025.protocol.sharing";
+option java_package = "com.fpm2025.grpc.protocol";
+option java_outer_classname = "SharingProto";
 
 service SharingGrpcService {
-  rpc GetFamilyById(FamilyIdRequest) returns (FamilyResponse);
-  rpc GetUserFamilies(UserIdRequest) returns (FamiliesResponse);
+  rpc GetFamilyById(fpm2025.common.FamilyIdRequest) returns (FamilyResponse);
+  rpc GetUserFamilies(fpm2025.common.UserIdRequest) returns (FamiliesResponse);
   rpc CheckFamilyMembership(MembershipRequest) returns (MembershipResponse);
-  rpc GetSharedWallets(FamilyIdRequest) returns (SharedWalletsResponse);
-}
-
-message FamilyIdRequest {
-  int64 family_id = 1;
-}
-
-message UserIdRequest {
-  int64 user_id = 1;
+  rpc GetSharedWallets(fpm2025.common.FamilyIdRequest) returns (SharedWalletsResponse);
 }
 
 message MembershipRequest {

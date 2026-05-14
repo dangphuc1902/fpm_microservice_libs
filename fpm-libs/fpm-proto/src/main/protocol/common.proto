@@ -3,7 +3,8 @@ syntax = "proto3";
 package fpm2025.common;
 
 option java_multiple_files = true;
-option java_package = "com.fpm2025.protocol.common";
+option java_package = "com.fpm2025.grpc.protocol";
+option java_outer_classname = "CommonProto";
 
 message Empty {}
 
@@ -29,4 +30,12 @@ message PageResponse {
   int64 total_elements = 2;
   int32 current_page = 3;
   int32 size = 4;
+}
+
+message FamilyIdRequest {
+  int64 family_id = 1;
+}
+
+message UserIdRequest {
+  int64 user_id = 1;
 }

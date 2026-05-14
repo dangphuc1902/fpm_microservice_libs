@@ -5,7 +5,8 @@ package fpm2025.wallet;
 import "common.proto";
 
 option java_multiple_files = true;
-option java_package = "com.fpm2025.protocol.wallet";
+option java_package = "com.fpm2025.grpc.protocol";
+option java_outer_classname = "WalletProto";
 
 service WalletGrpcService {
   rpc GetWalletById(WalletIdRequest) returns (WalletResponse);

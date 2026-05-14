@@ -5,18 +5,15 @@ package fpm2025.user;
 import "common.proto";
 
 option java_multiple_files = true;
-option java_package = "com.fpm2025.protocol.user";
+option java_package = "com.fpm2025.grpc.protocol";
+option java_outer_classname = "UserProto";
 
 service UserGrpcService {
-  rpc GetUserById(UserIdRequest) returns (UserResponse);
+  rpc GetUserById(fpm2025.common.UserIdRequest) returns (UserResponse);
   rpc GetUsersByIds(UserIdsRequest) returns (UsersResponse);
   rpc ValidateToken(TokenRequest) returns (TokenValidationResponse);
-  rpc GetFamilyMembers(FamilyIdRequest) returns (FamilyMembersResponse);
-  rpc CheckUserExists(UserIdRequest) returns (UserExistsResponse);
-}
-
-message UserIdRequest {
-  int64 user_id = 1;
+  rpc GetFamilyMembers(fpm2025.common.FamilyIdRequest) returns (FamilyMembersResponse);
+  rpc CheckUserExists(fpm2025.common.UserIdRequest) returns (UserExistsResponse);
 }
 
 message UserIdsRequest {
@@ -25,10 +22,6 @@ message UserIdsRequest {
 
 message TokenRequest {
   string token = 1;
-}
-
-message FamilyIdRequest {
-  int64 family_id = 1;
 }
 
 message UserResponse {
