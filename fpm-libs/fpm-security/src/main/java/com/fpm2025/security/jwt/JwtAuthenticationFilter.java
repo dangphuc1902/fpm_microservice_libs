@@ -42,16 +42,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = jwtTokenProvider.extractTokenFromHeader(authHeader);
  
             if (token != null && jwtTokenProvider.validateToken(token)) {
-                if (userDetailsService != null) {
-                    // Scenario A: UserDetailsService present (e.g., user-auth-service)
-                    String email = jwtTokenProvider.extractEmail(token);
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                    log.debug("Authenticated via UserDetailsService: {}", email);
-                } else {
+                boolean authenticatedViaService = false;
+                
+                if (userDetailsService != null && !(userDetailsService instanceof org.springframework.security.provisioning.InMemoryUserDetailsManager)) {
+                    // Scenario A: Real UserDetailsService present (e.g., user-auth-service)
+                    try {
+                        String email = jwtTokenProvider.extractEmail(token);
+                        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                        log.debug("Authenticated via UserDetailsService: {}", email);
+                        authenticatedViaService = true;
+                    } catch (org.springframework.security.core.userdetails.UsernameNotFoundException ex) {
+                        log.debug("User not found in UserDetailsService, falling back to stateless.");
+                    }
+                }
+                
+                if (!authenticatedViaService) {
                     // Scenario B: Stateless microservices (e.g., wallet, transaction)
                     Long userId = jwtTokenProvider.extractUserId(token);
                     String role = (String) jwtTokenProvider.extractClaims(token).get("role");
