@@ -15,6 +15,21 @@ import java.util.Map;
 @Slf4j
 public abstract class BaseGlobalExceptionHandler {
  
+    // Giu nguyen ma HTTP cua ResponseStatusException (403, 404, 409...) thay vi bi handler Exception.class tra 500
+    @ExceptionHandler(org.springframework.web.server.ResponseStatusException.class)
+    public ResponseEntity<BaseResponse<Void>> handleResponseStatusException(
+            org.springframework.web.server.ResponseStatusException ex, WebRequest request) {
+        log.warn("Response status {}: {}", ex.getStatusCode().value(), ex.getReason());
+        HttpStatus status = HttpStatus.valueOf(ex.getStatusCode().value());
+        BaseResponse<Void> errorResponse = BaseResponse.error(
+            status.value(),
+            status.getReasonPhrase(),
+            ex.getReason(),
+            request.getDescription(false).replace("uri=", "")
+        );
+        return new ResponseEntity<>(errorResponse, status);
+    }
+ 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<BaseResponse<Void>> handleIllegalArgumentException(
             IllegalArgumentException ex, WebRequest request) {

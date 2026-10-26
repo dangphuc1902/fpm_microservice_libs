@@ -22,6 +22,9 @@ public class TransactionRequest implements Serializable {
 
     private Long categoryId;
 
+    // Client Android gui ten category; backend tu tra ra categoryId neu categoryId == null
+    private String categoryName;
+
     @NotNull(message = "Amount is required")
     @DecimalMin(value = "0.01", message = "Amount must be greater than 0")
     private BigDecimal amount;
